@@ -4,7 +4,7 @@ import pickle
 import socket
 
 HEADER_SIZE = 10
-HOST = "0.0.0.0"
+HOST = "localhost"
 PORT = 5555
 FORMAT = "utf-8"
 
@@ -34,7 +34,7 @@ def threaded_client(conn, cur_player):
             elif data[0] == data[1] == -3:
                 print("Receive: Reset Game")
                 game.full_reset()
-            else:
+            elif not game.win_move:
                 print(f"Receive: play move {data[0]}, {data[1]}")
                 game.play_move(data[0], data[1], char)
                 game.check_win()
